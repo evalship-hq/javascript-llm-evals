@@ -20,7 +20,10 @@ function failure(error) {
     const couldntRun = error.status === 401 || error.status === 429 || error.status >= 500;
     return couldntRun ? `#tinyeval couldnt_run ${reason}\n` : reason;
   }
-  return `#tinyeval couldnt_run ${error.message.split("\n")[0]}\n`; // a missing key fails before any request
+  if (error instanceof Error && error.message.startsWith("Could not resolve authentication")) {
+    return "#tinyeval couldnt_run no ANTHROPIC_API_KEY\n"; // the SDK throws a plain Error when it finds no key
+  }
+  return String(error).split("\n")[0]; // a bug in the app's own code fails the eval
 }
 
 let rest = Buffer.alloc(0);
