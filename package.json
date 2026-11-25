@@ -9,6 +9,6 @@
     "@anthropic-ai/sdk": "^1.6.0"
   },
   "devDependencies": {
-    "tinyeval-cli": "^0.11.0"
+    "tinyeval-cli": "^0.12.2"
   }
 }
